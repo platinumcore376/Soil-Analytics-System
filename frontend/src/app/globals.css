@@ -1,0 +1,66 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+}
+
+html,
+body {
+  @apply bg-surface text-ink;
+  /* System fonts include Devanagari and Kannada coverage on Android, so no webfont
+     download — important on metered rural data. */
+  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans',
+    'Noto Sans Devanagari', 'Noto Sans Kannada', sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Respect the notch / navigation bar when installed as a standalone app. */
+body {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+/* Every interactive element clears the 48px touch-target guideline.
+ *
+ * `:not([data-compact])` is the escape hatch. Previously this rule was unconditional, so any
+ * element that needed to be smaller — a status chip, an inline text link — had to fight it
+ * with `style={{ minHeight: 'auto' }}`. That pattern then leaked onto genuinely tappable
+ * controls (the show/hide-password button, the banner dismiss ✕), leaving real buttons well
+ * under 48px. Opting out is now explicit and greppable, and a plain <button> can never lose
+ * its touch target by accident.
+ */
+button:not([data-compact]),
+a[role='button']:not([data-compact]),
+input,
+select {
+  min-height: 3rem;
+}
+
+/* Small inline controls that are still comfortably tappable: 44px (Apple's minimum) with
+ * generous horizontal padding, used where a 48px block would break the line it sits in. */
+[data-compact] {
+  min-height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* Numeric inputs: no spinners, and a bigger tap area for the field. */
+input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

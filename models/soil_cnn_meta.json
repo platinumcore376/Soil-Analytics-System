@@ -1,0 +1,16 @@
+{
+  "architecture": "resnet50",
+  "weights_file": "soil_resnet50.pth",
+  "num_classes": 5,
+  "classes": [
+    "Black Soil",
+    "Cinder Soil",
+    "Laterite Soil",
+    "Peat Soil",
+    "Yellow Soil"
+  ],
+  "input_size": 224,
+  "normalize_mean": [0.485, 0.456, 0.406],
+  "normalize_std": [0.229, 0.224, 0.225],
+  "preprocessing": "Resize(256) -> CenterCrop(224) -> ToTensor -> Normalize(ImageNet)"
+}

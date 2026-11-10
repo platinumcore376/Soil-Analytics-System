@@ -1,0 +1,39 @@
+{
+  "architecture": "resnet50",
+  "weights_file": "soil_resnet50.pth",
+  "num_classes": 5,
+  "classes": [
+    "Alluvial",
+    "Black",
+    "Laterite",
+    "Red",
+    "Unlabeled"
+  ],
+  "input_size": 224,
+  "normalize_mean": [
+    0.485,
+    0.456,
+    0.406
+  ],
+  "normalize_std": [
+    0.229,
+    0.224,
+    0.225
+  ],
+  "preprocessing": "Resize((224, 224)) -> ToTensor -> Normalize(ImageNet)",
+  "trained_by": "notebooks/soil-classification.ipynb",
+  "dataset": "Roboflow Soil-Classification-3 (917 train / 115 valid / 114 test)",
+  "caveats": [
+    "All 4 test errors involve the Alluvial/Laterite boundary (2 Alluvial->Laterite, 1 Laterite->Alluvial, 1 Alluvial->Black). Alluvial has the weakest recall at 0.906.",
+    "Trained on 917 images. Small corpus; the Alluvial/Laterite decision boundary would benefit from more data.",
+    "Classifies soil TYPE only. Texture and visible deficiency symptoms, also named in the project documentation, are not modelled.",
+    "The Roboflow export applies augmentation before splitting, so some near-duplicate images may span splits. The 96.49% test accuracy is more credible than the previous 5-class model's 100%, but treat it as an upper bound."
+  ],
+  "metrics": {
+    "note": "Not yet measured for this 5-class checkpoint. The previous metrics (96.49% test accuracy) described a 4-class model and were removed rather than carried over. Re-run notebooks/soil-classification.ipynb's evaluation cells to populate this."
+  },
+  "retrained_at": "2026-08-10",
+  "notes": [
+    "This checkpoint has a 5th class, 'Unlabeled', from the Roboflow export. It is a dataset artifact, not a soil type: the serving layer maps it to 'no confident soil type' rather than reporting it to a farmer."
+  ]
+}

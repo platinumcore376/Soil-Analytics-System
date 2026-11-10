@@ -1,0 +1,54 @@
+{
+  "feature_cols": [
+    "N",
+    "P",
+    "K",
+    "temperature",
+    "humidity",
+    "ph",
+    "rainfall"
+  ],
+  "classes": [
+    "apple",
+    "banana",
+    "blackgram",
+    "chickpea",
+    "coconut",
+    "coffee",
+    "cotton",
+    "grapes",
+    "jute",
+    "kidneybeans",
+    "lentil",
+    "maize",
+    "mango",
+    "mothbeans",
+    "mungbean",
+    "muskmelon",
+    "orange",
+    "papaya",
+    "pigeonpeas",
+    "pomegranate",
+    "rice",
+    "watermelon"
+  ],
+  "thresholds": {
+    "N": {
+      "low": 40,
+      "high": 80
+    },
+    "P": {
+      "low": 30,
+      "high": 60
+    },
+    "K": {
+      "low": 30,
+      "high": 60
+    }
+  },
+  "ph_bands": {
+    "acidic": "<6.0",
+    "neutral": "6.0-7.5",
+    "alkaline": ">7.5"
+  }
+}

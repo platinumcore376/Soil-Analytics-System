@@ -1,0 +1,154 @@
+{
+  "feature_order": [
+    "nitrogen",
+    "phosphorus",
+    "potassium",
+    "ph",
+    "organic_matter",
+    "moisture"
+  ],
+  "feature_units": {
+    "nitrogen": "kg/ha",
+    "phosphorus": "kg/ha",
+    "potassium": "kg/ha",
+    "ph": "0-14",
+    "organic_matter": "%",
+    "moisture": "%"
+  },
+  "thresholds": {
+    "nitrogen": {
+      "low": 40.0,
+      "high": 80.0
+    },
+    "phosphorus": {
+      "low": 30.0,
+      "high": 60.0
+    },
+    "potassium": {
+      "low": 30.0,
+      "high": 60.0
+    }
+  },
+  "feature_medians": {
+    "nitrogen": 59.4296,
+    "phosphorus": 58.8479,
+    "potassium": 59.136,
+    "ph": 6.3382,
+    "organic_matter": 1.4868,
+    "moisture": 60.0335
+  },
+  "ph_bands": {
+    "acidic": "< 6.0",
+    "neutral": "6.0 - 7.5",
+    "alkaline": "> 7.5"
+  },
+  "training_data": {
+    "source": "fertilizer_recommendation.csv",
+    "rows_raw": 3100,
+    "rows_after_cleaning": 2870,
+    "rows_dropped": 230,
+    "drop_reason": "negative nutrient/carbon values or out-of-range pH/moisture"
+  },
+  "metrics": {
+    "deficiency_nitrogen": {
+      "classes": [
+        "adequate",
+        "high",
+        "low"
+      ],
+      "n_train": 2296,
+      "n_test": 574,
+      "accuracy": 0.9948,
+      "f1_macro": 0.9724,
+      "class_support": {
+        "adequate": 2612,
+        "high": 187,
+        "low": 71
+      }
+    },
+    "deficiency_phosphorus": {
+      "classes": [
+        "adequate",
+        "high",
+        "low"
+      ],
+      "n_train": 2296,
+      "n_test": 574,
+      "accuracy": 0.9983,
+      "f1_macro": 0.9988,
+      "class_support": {
+        "adequate": 1365,
+        "high": 1391,
+        "low": 114
+      }
+    },
+    "deficiency_potassium": {
+      "classes": [
+        "adequate",
+        "high",
+        "low"
+      ],
+      "n_train": 2296,
+      "n_test": 574,
+      "accuracy": 0.9983,
+      "f1_macro": 0.6655,
+      "class_support": {
+        "adequate": 1490,
+        "high": 1378,
+        "low": 2
+      }
+    },
+    "deficiency_ph": {
+      "classes": [
+        "acidic",
+        "alkaline",
+        "neutral"
+      ],
+      "n_train": 2296,
+      "n_test": 574,
+      "accuracy": 0.9983,
+      "f1_macro": 0.9966,
+      "class_support": {
+        "acidic": 893,
+        "alkaline": 289,
+        "neutral": 1688
+      }
+    },
+    "fertilizer": {
+      "classes": [
+        "Balanced NPK Fertilizer",
+        "Compost",
+        "DAP",
+        "General Purpose Fertilizer",
+        "Gypsum",
+        "Lime",
+        "Muriate of Potash",
+        "Organic Fertilizer",
+        "Urea",
+        "Water Retaining Fertilizer"
+      ],
+      "n_train": 2296,
+      "n_test": 574,
+      "accuracy": 0.9791,
+      "f1_macro": 0.9204,
+      "class_support": {
+        "Balanced NPK Fertilizer": 157,
+        "Compost": 337,
+        "DAP": 928,
+        "General Purpose Fertilizer": 31,
+        "Gypsum": 50,
+        "Lime": 176,
+        "Muriate of Potash": 277,
+        "Organic Fertilizer": 95,
+        "Urea": 144,
+        "Water Retaining Fertilizer": 675
+      }
+    }
+  },
+  "caveats": [
+    "Deficiency labels are DERIVED from the threshold bands above, not ground truth. Their near-perfect accuracy reflects rule consistency, not predictive skill. The rule engine remains the source of truth; these models add calibrated probabilities and SHAP attributions.",
+    "The fertilizer model uses real dataset labels and is genuinely predictive.",
+    "Thresholds are provisional. Calibrate against ICAR Soil Health Card reference bands for the target region before advisory use."
+  ],
+  "random_state": 42
+}

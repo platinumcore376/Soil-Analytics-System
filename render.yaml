@@ -1,0 +1,40 @@
+# Render Blueprint: New -> Blueprint -> select this repo. Values marked
+# sync:false are prompted on first deploy. Details: README.md "Deployment".
+services:
+  - type: web
+    name: soil-health-api
+    runtime: python
+    rootDir: backend
+    plan: free
+    # torch excluded: too large for the free tier (soil-type routes 503; see README).
+    buildCommand: grep -vE '^(--extra-index-url|torch|torchvision)' requirements.txt > /tmp/req.txt && pip install -r /tmp/req.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.4
+      - key: IMAGE_RETENTION_HOURS # backstop sweep for photos that never reach a report
+        value: "24"
+      - key: DATABASE_URL # Supabase: use the SESSION POOLER url, not db.<ref>.supabase.co
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: SARVAM_API_KEY # optional; empty = on-device speech fallback
+        sync: false
+      - key: CORS_ORIGINS
+        value: "http://localhost:3000,http://127.0.0.1:3000,https://soil-health-pwa.onrender.com"
+
+  - type: web
+    name: soil-health-pwa
+    runtime: node
+    rootDir: frontend
+    plan: free
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: "20"
+      - key: BACKEND_URL # the API service's public URL, e.g. https://soil-health-api.onrender.com
+        sync: false
+      - key: NEXT_PUBLIC_API_URL
+        value: "/api"

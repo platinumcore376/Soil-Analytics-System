@@ -1,0 +1,71 @@
+# ==========================================================================
+# AI-Based Soil Health Assessment System — API runtime dependencies
+#
+# This file is what a DEPLOYMENT installs: the Render service in ../render.yaml
+# sets rootDir: backend and installs it directly. Contains exactly what the
+# FastAPI service imports at runtime — nothing notebook- or training-only. For
+# local development, training and tests:  pip install -r requirements-dev.txt
+# (which includes this file).
+#
+# Frontend deps are npm and live in frontend/package.json.
+# ==========================================================================
+
+# --- Web framework / API ---
+fastapi>=0.110
+uvicorn[standard]>=0.27
+python-multipart>=0.0.9          # multipart/form-data image uploads
+pydantic>=2.6
+pydantic-settings>=2.1
+python-dotenv>=1.0
+
+# --- Authentication (app/auth.py) ---
+bcrypt>=4.0                      # password hashing
+PyJWT>=2.8                       # bearer tokens (imported as `jwt`)
+
+# --- Outbound HTTP & Storage ---
+# The Sarvam AI text-to-speech proxy (app/routers/tts.py) calls the Sarvam API
+# with httpx at request time; it is also the FastAPI TestClient transport.
+httpx>=0.27
+supabase                         # Supabase cloud storage (app/storage.py)
+
+# --- Database (PostgreSQL + ORM) ---
+sqlalchemy>=2.0
+psycopg2-binary>=2.9
+psycopg[binary]>=3.1.18
+alembic>=1.13                    # intended for schema changes; create_all only ADDS tables.
+                                 # Until it is wired up, one-off migrations live in
+                                 # backend/scripts/migrate_*.py
+
+# --- Image processing (OpenCV pipeline) ---
+opencv-python>=4.9
+pillow>=10.2
+numpy>=1.26
+
+# --- ML: soil-type CNN (ResNet-50) ---
+# OPTIONAL at runtime: torch is imported lazily, so every other endpoint works
+# without it and the CNN routes return 503 instead. The extra index below makes
+# pip pick the CPU-only Linux wheels (~200 MB) instead of the CUDA build
+# (~2.5 GB) — no server here has a GPU. On Windows/macOS it changes nothing.
+# On a platform with a hard build-size limit (e.g. Heroku's 500 MB slug),
+# comment these two out and deploy without the CNN.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch>=2.1
+torchvision>=0.16
+
+# --- ML: structured models (XGBoost deficiency + fertilizer) ---
+xgboost>=2.0
+scikit-learn>=1.3
+pandas>=2.0
+joblib>=1.3
+
+# --- Explainability & Visualization ---
+# shap powers the per-nutrient explanations in /analyze responses. (Grad-CAM
+# for images is hand-rolled with autograd hooks — no extra package.)
+# NOTE: shap pulls in numba, which pins numpy<2.4 and will DOWNGRADE an
+# existing numpy 2.4.x. Harmless here — all code is numpy-2.x compatible.
+shap>=0.44
+matplotlib>=3.8
+
+# --- Reporting (downloadable PDF soil health report) ---
+reportlab>=4.0
+

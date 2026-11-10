@@ -1,0 +1,74 @@
+# CI: backend test suite + frontend production build on every push.
+#
+# Notes on what is deliberately NOT here:
+#   * No PostgreSQL service — the test suite runs on in-memory SQLite by design
+#     (see backend/tests/conftest.py), so CI needs no database and no secrets.
+#   * No torch/torchvision — every torch import in the app is lazy, no test
+#     exercises the CNN, and skipping it saves ~2 minutes and ~800 MB per run.
+#   * No deploy job yet — Railway/Render deploy by watching the repo directly
+#     (the root Procfile defines the process). Add a job here only if deploying
+#     somewhere that needs an explicit push step.
+name: CI
+
+on:
+  push:
+  pull_request:
+    branches: [main]
+
+# A newer push to the same branch supersedes the running build.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fail fast if model artifacts are missing
+        # The analysis tests run the real XGBoost artifacts in app/ml/models/structured.
+        run: |
+          test -f app/ml/models/structured/crop_suitability_model.pkl
+          test -f app/ml/models/structured/deficiency_n_xgb.json
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version-file: .python-version
+          cache: pip
+
+      - name: System libraries for opencv-python
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libgl1
+
+      - name: Install dependencies (without the lazy-loaded CNN stack)
+        run: |
+          grep -vE '^(--extra-index-url|torch|torchvision)' requirements.txt > /tmp/ci-requirements.txt
+          pip install -r /tmp/ci-requirements.txt pytest
+
+      - name: Run test suite
+        run: python -m pytest -q
+
+  frontend-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - run: npm ci
+
+      - name: Typecheck + locale parity
+        run: npm run typecheck
+
+      - name: Production build
+        run: npm run build

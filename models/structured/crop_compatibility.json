@@ -1,0 +1,520 @@
+{
+  "source": "data/crop_recommendation.csv",
+  "method": "per-crop 10th-90th percentile band from 100 samples per crop",
+  "crops": 22,
+  "parameters": [
+    "nitrogen",
+    "phosphorus",
+    "potassium",
+    "ph"
+  ],
+  "note": "Bands are observed ranges from the dataset, not published agronomic optima. Percentiles (not min/max) exclude outliers.",
+  "compatibility": {
+    "apple": {
+      "nitrogen": {
+        "low": 2.0,
+        "high": 35.0,
+        "mean": 20.8
+      },
+      "phosphorus": {
+        "low": 122.0,
+        "high": 144.0,
+        "mean": 134.22
+      },
+      "potassium": {
+        "low": 196.0,
+        "high": 205.0,
+        "mean": 199.89
+      },
+      "ph": {
+        "low": 5.6,
+        "high": 6.29,
+        "mean": 5.93
+      },
+      "samples": 100
+    },
+    "banana": {
+      "nitrogen": {
+        "low": 85.0,
+        "high": 117.0,
+        "mean": 100.23
+      },
+      "phosphorus": {
+        "low": 72.0,
+        "high": 92.1,
+        "mean": 82.01
+      },
+      "potassium": {
+        "low": 45.0,
+        "high": 55.0,
+        "mean": 50.05
+      },
+      "ph": {
+        "low": 5.63,
+        "high": 6.33,
+        "mean": 5.98
+      },
+      "samples": 100
+    },
+    "blackgram": {
+      "nitrogen": {
+        "low": 21.9,
+        "high": 57.0,
+        "mean": 40.02
+      },
+      "phosphorus": {
+        "low": 58.0,
+        "high": 78.0,
+        "mean": 67.47
+      },
+      "potassium": {
+        "low": 15.0,
+        "high": 24.0,
+        "mean": 19.24
+      },
+      "ph": {
+        "low": 6.6,
+        "high": 7.58,
+        "mean": 7.13
+      },
+      "samples": 100
+    },
+    "chickpea": {
+      "nitrogen": {
+        "low": 24.0,
+        "high": 57.1,
+        "mean": 40.09
+      },
+      "phosphorus": {
+        "low": 57.0,
+        "high": 78.0,
+        "mean": 67.79
+      },
+      "potassium": {
+        "low": 76.0,
+        "high": 85.0,
+        "mean": 79.92
+      },
+      "ph": {
+        "low": 6.31,
+        "high": 8.49,
+        "mean": 7.34
+      },
+      "samples": 100
+    },
+    "coconut": {
+      "nitrogen": {
+        "low": 3.0,
+        "high": 37.0,
+        "mean": 21.98
+      },
+      "phosphorus": {
+        "low": 6.0,
+        "high": 29.0,
+        "mean": 16.93
+      },
+      "potassium": {
+        "low": 26.0,
+        "high": 35.0,
+        "mean": 30.59
+      },
+      "ph": {
+        "low": 5.57,
+        "high": 6.38,
+        "mean": 5.98
+      },
+      "samples": 100
+    },
+    "coffee": {
+      "nitrogen": {
+        "low": 83.9,
+        "high": 117.0,
+        "mean": 101.2
+      },
+      "phosphorus": {
+        "low": 18.0,
+        "high": 39.0,
+        "mean": 28.74
+      },
+      "potassium": {
+        "low": 26.0,
+        "high": 35.0,
+        "mean": 29.94
+      },
+      "ph": {
+        "low": 6.14,
+        "high": 7.29,
+        "mean": 6.79
+      },
+      "samples": 100
+    },
+    "cotton": {
+      "nitrogen": {
+        "low": 102.0,
+        "high": 133.0,
+        "mean": 117.77
+      },
+      "phosphorus": {
+        "low": 37.0,
+        "high": 57.1,
+        "mean": 46.24
+      },
+      "potassium": {
+        "low": 15.0,
+        "high": 24.0,
+        "mean": 19.56
+      },
+      "ph": {
+        "low": 6.13,
+        "high": 7.81,
+        "mean": 6.91
+      },
+      "samples": 100
+    },
+    "grapes": {
+      "nitrogen": {
+        "low": 6.0,
+        "high": 39.0,
+        "mean": 23.18
+      },
+      "phosphorus": {
+        "low": 121.9,
+        "high": 142.0,
+        "mean": 132.53
+      },
+      "potassium": {
+        "low": 195.0,
+        "high": 204.0,
+        "mean": 200.11
+      },
+      "ph": {
+        "low": 5.62,
+        "high": 6.42,
+        "mean": 6.03
+      },
+      "samples": 100
+    },
+    "jute": {
+      "nitrogen": {
+        "low": 63.0,
+        "high": 91.0,
+        "mean": 78.4
+      },
+      "phosphorus": {
+        "low": 38.0,
+        "high": 57.0,
+        "mean": 46.86
+      },
+      "potassium": {
+        "low": 35.0,
+        "high": 44.0,
+        "mean": 39.99
+      },
+      "ph": {
+        "low": 6.13,
+        "high": 7.32,
+        "mean": 6.73
+      },
+      "samples": 100
+    },
+    "kidneybeans": {
+      "nitrogen": {
+        "low": 5.9,
+        "high": 35.1,
+        "mean": 20.75
+      },
+      "phosphorus": {
+        "low": 57.9,
+        "high": 79.0,
+        "mean": 67.54
+      },
+      "potassium": {
+        "low": 15.9,
+        "high": 24.0,
+        "mean": 20.05
+      },
+      "ph": {
+        "low": 5.56,
+        "high": 5.95,
+        "mean": 5.75
+      },
+      "samples": 100
+    },
+    "lentil": {
+      "nitrogen": {
+        "low": 3.0,
+        "high": 36.1,
+        "mean": 18.77
+      },
+      "phosphorus": {
+        "low": 58.9,
+        "high": 78.1,
+        "mean": 68.36
+      },
+      "potassium": {
+        "low": 15.0,
+        "high": 23.1,
+        "mean": 19.41
+      },
+      "ph": {
+        "low": 6.17,
+        "high": 7.67,
+        "mean": 6.93
+      },
+      "samples": 100
+    },
+    "maize": {
+      "nitrogen": {
+        "low": 61.9,
+        "high": 95.1,
+        "mean": 77.76
+      },
+      "phosphorus": {
+        "low": 37.0,
+        "high": 59.0,
+        "mean": 48.44
+      },
+      "potassium": {
+        "low": 16.0,
+        "high": 24.0,
+        "mean": 19.79
+      },
+      "ph": {
+        "low": 5.72,
+        "high": 6.8,
+        "mean": 6.25
+      },
+      "samples": 100
+    },
+    "mango": {
+      "nitrogen": {
+        "low": 2.9,
+        "high": 37.0,
+        "mean": 20.07
+      },
+      "phosphorus": {
+        "low": 17.0,
+        "high": 37.0,
+        "mean": 27.18
+      },
+      "potassium": {
+        "low": 26.0,
+        "high": 34.0,
+        "mean": 29.92
+      },
+      "ph": {
+        "low": 4.76,
+        "high": 6.78,
+        "mean": 5.77
+      },
+      "samples": 100
+    },
+    "mothbeans": {
+      "nitrogen": {
+        "low": 4.9,
+        "high": 36.0,
+        "mean": 21.44
+      },
+      "phosphorus": {
+        "low": 37.0,
+        "high": 58.0,
+        "mean": 48.01
+      },
+      "potassium": {
+        "low": 16.0,
+        "high": 24.0,
+        "mean": 20.23
+      },
+      "ph": {
+        "low": 4.16,
+        "high": 9.08,
+        "mean": 6.83
+      },
+      "samples": 100
+    },
+    "mungbean": {
+      "nitrogen": {
+        "low": 4.0,
+        "high": 35.1,
+        "mean": 20.99
+      },
+      "phosphorus": {
+        "low": 37.0,
+        "high": 59.0,
+        "mean": 47.28
+      },
+      "potassium": {
+        "low": 15.0,
+        "high": 24.0,
+        "mean": 19.87
+      },
+      "ph": {
+        "low": 6.36,
+        "high": 7.13,
+        "mean": 6.72
+      },
+      "samples": 100
+    },
+    "muskmelon": {
+      "nitrogen": {
+        "low": 83.0,
+        "high": 117.0,
+        "mean": 100.32
+      },
+      "phosphorus": {
+        "low": 7.0,
+        "high": 26.0,
+        "mean": 17.72
+      },
+      "potassium": {
+        "low": 46.0,
+        "high": 54.1,
+        "mean": 50.08
+      },
+      "ph": {
+        "low": 6.08,
+        "high": 6.7,
+        "mean": 6.36
+      },
+      "samples": 100
+    },
+    "orange": {
+      "nitrogen": {
+        "low": 4.9,
+        "high": 37.0,
+        "mean": 19.58
+      },
+      "phosphorus": {
+        "low": 7.0,
+        "high": 28.1,
+        "mean": 16.55
+      },
+      "potassium": {
+        "low": 6.0,
+        "high": 14.0,
+        "mean": 10.01
+      },
+      "ph": {
+        "low": 6.25,
+        "high": 7.8,
+        "mean": 7.02
+      },
+      "samples": 100
+    },
+    "papaya": {
+      "nitrogen": {
+        "low": 34.0,
+        "high": 68.0,
+        "mean": 49.88
+      },
+      "phosphorus": {
+        "low": 48.0,
+        "high": 68.0,
+        "mean": 59.05
+      },
+      "potassium": {
+        "low": 46.0,
+        "high": 54.0,
+        "mean": 50.04
+      },
+      "ph": {
+        "low": 6.55,
+        "high": 6.97,
+        "mean": 6.74
+      },
+      "samples": 100
+    },
+    "pigeonpeas": {
+      "nitrogen": {
+        "low": 5.0,
+        "high": 37.0,
+        "mean": 20.73
+      },
+      "phosphorus": {
+        "low": 57.0,
+        "high": 77.0,
+        "mean": 67.73
+      },
+      "potassium": {
+        "low": 16.9,
+        "high": 24.0,
+        "mean": 20.29
+      },
+      "ph": {
+        "low": 4.72,
+        "high": 7.05,
+        "mean": 5.79
+      },
+      "samples": 100
+    },
+    "pomegranate": {
+      "nitrogen": {
+        "low": 4.0,
+        "high": 38.1,
+        "mean": 18.87
+      },
+      "phosphorus": {
+        "low": 7.9,
+        "high": 27.1,
+        "mean": 18.75
+      },
+      "potassium": {
+        "low": 36.0,
+        "high": 44.0,
+        "mean": 40.21
+      },
+      "ph": {
+        "low": 5.77,
+        "high": 7.06,
+        "mean": 6.43
+      },
+      "samples": 100
+    },
+    "rice": {
+      "nitrogen": {
+        "low": 62.9,
+        "high": 95.0,
+        "mean": 79.89
+      },
+      "phosphorus": {
+        "low": 36.0,
+        "high": 58.0,
+        "mean": 47.58
+      },
+      "potassium": {
+        "low": 36.0,
+        "high": 44.0,
+        "mean": 39.87
+      },
+      "ph": {
+        "low": 5.38,
+        "high": 7.48,
+        "mean": 6.43
+      },
+      "samples": 100
+    },
+    "watermelon": {
+      "nitrogen": {
+        "low": 83.0,
+        "high": 118.0,
+        "mean": 99.42
+      },
+      "phosphorus": {
+        "low": 7.0,
+        "high": 27.0,
+        "mean": 17.0
+      },
+      "potassium": {
+        "low": 45.0,
+        "high": 55.0,
+        "mean": 50.22
+      },
+      "ph": {
+        "low": 6.11,
+        "high": 6.88,
+        "mean": 6.5
+      },
+      "samples": 100
+    }
+  }
+}

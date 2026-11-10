@@ -1,0 +1,79 @@
+*.qodo/
+
+# NOTE: notebooks/ is deliberately NOT ignored — the training notebooks are
+# project deliverables and must be version-controlled.
+
+.env
+*.db
+storage/
+
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.pyc
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+ENV/
+
+# --- Environment / secrets ---
+.env
+.env.*
+!.env.example
+
+# --- Stray local DB files (project uses PostgreSQL; these should not appear) ---
+*.db
+*.sqlite
+*.sqlite3
+*.dump
+*.sql.gz
+
+# --- Uploaded / processed media & storage ---
+storage/
+backend/storage/
+
+# --- Datasets (large image corpora not committed; keep small CSVs) ---
+data/images/
+data/**/*.zip
+Soil-Type-Identification-*/
+!data/crop_recommendation.csv
+!data/DATASET.md
+
+# --- Trained model weights (large binaries) ---
+# Keep CNN weights (*.pt) out of git to avoid bloat; structured XGBoost models are tracked.
+*.pth
+*.pt
+!backend/app/ml/models/structured/
+!backend/app/ml/models/structured/**
+!models/
+!models/**
+
+# --- Jupyter ---
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# --- Node / Next.js frontend (Phase 3) ---
+node_modules/
+.next/
+out/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# --- OS / editor ---
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp

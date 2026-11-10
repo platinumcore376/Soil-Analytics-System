@@ -1,0 +1,26 @@
+# ==========================================================================
+# Development, training and notebook extras — NOT installed by deployments.
+#
+# Install:  pip install -r requirements-dev.txt   (pulls in requirements.txt too)
+# ==========================================================================
+-r requirements.txt
+
+# --- Testing / repo scripts ---
+pytest>=8.0
+pypdf>=4.0                       # backend/scripts/generate_sample_report.py verifies PDF output
+
+# --- Explainability (notebook evaluation only) ---
+grad-cam>=1.5
+
+# --- Visualization / notebooks (EDA, evaluation, confusion matrices) ---
+matplotlib>=3.7
+seaborn>=0.13
+jupyter>=1.0
+
+# --- Dataset acquisition (Roboflow / Kaggle) ---
+# Move the Roboflow API key to an env var before re-running the CNN notebook.
+# NOTE: roboflow depends on opencv-python-headless, which installs alongside
+# opencv-python. Both provide the `cv2` module — import order decides which
+# wins. Only needed for dataset downloads, so prefer a separate env.
+roboflow>=1.1
+kagglehub>=0.2
